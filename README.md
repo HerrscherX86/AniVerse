@@ -16,7 +16,7 @@ AniVerse is an app that allows you to search and explore your favorite anime. Ge
 <img src="https://github.com/HerrscherX86/AniVerse/assets/114969404/51095b16-c2b0-4caf-a5fb-00a273715ad8" width="23%"></img> 
 <img src="https://github.com/HerrscherX86/AniVerse/assets/114969404/2526366e-90e8-47c0-9875-0f28bdd8c472" width="23%"></img> 
 <img src="https://github.com/HerrscherX86/AniVerse/assets/114969404/3d7a92a0-f629-4705-bad3-a37c6b764832" width="23%"></img>
-<img src="(https://github.com/HerrscherX86/AniVerse/assets/114969404/c3a78b3c-e759-46f6-bc80-1abfc03be1fd" width="23%"></img>
+<img src="https://github.com/HerrscherX86/AniVerse/assets/114969404/c3a78b3c-e759-46f6-bc80-1abfc03be1fd" width="23%"></img>
 <img src="https://github.com/HerrscherX86/AniVerse/assets/114969404/a3de4fc7-b9f1-4607-a7d6-ebac1947f8f0" width="23%"></img>
 <img src="https://github.com/HerrscherX86/AniVerse/assets/114969404/8aa69f71-b2ec-49d3-938f-8c9d1623d294" width="23%"></img> 
 </p>
