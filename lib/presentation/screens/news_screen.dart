@@ -4,21 +4,25 @@ import 'package:http/http.dart' as http;
 import 'package:xml/xml.dart' as xml;
 import 'package:webview_flutter/webview_flutter.dart';
 
+// Screen to display anime news from Anime News Network
 class NewsScreen extends StatefulWidget {
   @override
   _NewsScreenState createState() => _NewsScreenState();
 }
 
 class _NewsScreenState extends State<NewsScreen> {
+  // List to hold news items
   List<NewsItem> _newsItems = [];
+  // Boolean to show loading indicator
   bool _isLoading = true;
 
   @override
   void initState() {
     super.initState();
-    _fetchNews();
+    _fetchNews();  // Fetch news items on initialization
   }
 
+  // Method to fetch news from the RSS feed
   Future<void> _fetchNews() async {
     final response = await http.get(Uri.parse('https://www.animenewsnetwork.com/news/rss.xml?ann-edition=us'));
     if (response.statusCode == 200) {
@@ -32,6 +36,7 @@ class _NewsScreenState extends State<NewsScreen> {
         return NewsItem(title, link, description, pubDate);
       }).toList();
 
+      // Update state with fetched news items and hide loading indicator
       setState(() {
         _newsItems = newsItems;
         _isLoading = false;
@@ -52,7 +57,7 @@ class _NewsScreenState extends State<NewsScreen> {
         titleTextStyle: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),
       ),
       body: _isLoading
-          ? Center(child: CircularProgressIndicator())
+          ? Center(child: CircularProgressIndicator())  // Show loading indicator if news is still loading
           : ListView.builder(
         padding: const EdgeInsets.all(8.0),
         itemCount: _newsItems.length,
@@ -84,18 +89,22 @@ class _NewsScreenState extends State<NewsScreen> {
   }
 }
 
+// Class to represent a news item
 class NewsItem {
   final String title;
   final String link;
   final String description;
   final String pubDate;
 
+  // Constructor to initialize a news item
   NewsItem(this.title, this.link, this.description, this.pubDate);
 }
 
+// Screen to display news details in a WebView
 class NewsDetailScreen extends StatelessWidget {
   final String url;
 
+  // Constructor to initialize with the news URL
   NewsDetailScreen({required this.url});
 
   @override

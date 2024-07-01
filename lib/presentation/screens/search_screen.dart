@@ -3,14 +3,17 @@ import 'package:provider/provider.dart';
 import 'package:aniverse_2/presentation/providers/anime_provider.dart';
 import 'anime_details_screen.dart';
 
+// Screen for searching anime
 class SearchScreen extends StatefulWidget {
   @override
   _SearchScreenState createState() => _SearchScreenState();
 }
 
 class _SearchScreenState extends State<SearchScreen> {
+  // Controller for search input field
   final TextEditingController _searchController = TextEditingController();
 
+  // Method to trigger search
   void _search() {
     final query = _searchController.text;
     if (query.isNotEmpty) {
@@ -21,7 +24,7 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.white,  // Set the background color to white
       appBar: AppBar(
         title: Text(
           'Search It',
@@ -47,6 +50,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   ),
                 ],
               ),
+              // Search input field
               child: TextField(
                 controller: _searchController,
                 decoration: InputDecoration(
@@ -68,6 +72,7 @@ class _SearchScreenState extends State<SearchScreen> {
             ),
           ),
           Expanded(
+            // Consumer to listen for changes in AnimeProvider
             child: Consumer<AnimeProvider>(
               builder: (context, provider, child) {
                 if (provider.errorMessage.isNotEmpty) {
@@ -76,6 +81,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 if (provider.searchResults.isEmpty) {
                   return Center(child: Text('No results found.'));
                 }
+                // GridView to display search results
                 return GridView.builder(
                   padding: const EdgeInsets.all(8.0),
                   itemCount: provider.searchResults.length,
@@ -99,6 +105,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          // Anime image
                           Expanded(
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(10),
@@ -111,6 +118,7 @@ class _SearchScreenState extends State<SearchScreen> {
                             ),
                           ),
                           SizedBox(height: 8),
+                          // Anime title
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 4.0),
                             child: Text(

@@ -1,6 +1,7 @@
 import 'package:aniverse_2/domain/entities/anime.dart';
 
 class AnimeModel extends Anime {
+  // Constructor for AnimeModel, initializing all fields and calling the super constructor
   AnimeModel({
     required int malId,
     required String title,
@@ -37,16 +38,20 @@ class AnimeModel extends Anime {
     streamingUrl: streamingUrl,
   );
 
+  // Factory constructor to create an AnimeModel instance from JSON
   factory AnimeModel.fromJson(Map<String, dynamic> json) {
     // Debugging statements to print the JSON response
     print('Parsing AnimeModel from JSON: $json');
 
+    // Extracting trailer URL and streaming URL from JSON, providing default empty string if not found
     final trailerUrl = json['trailer']?['url'] ?? '';
     final streamingUrl = json['streaming']?['url'] ?? '';
 
+    // Debugging prints for extracted URLs
     print('Parsed trailer URL: $trailerUrl'); // Debugging
     print('Parsed streaming URL: $streamingUrl'); // Debugging
 
+    // Creating and returning an AnimeModel instance
     return AnimeModel(
       malId: json['mal_id'],
       title: json['title'] ?? '',

@@ -3,11 +3,12 @@ import 'package:provider/provider.dart';
 import 'package:aniverse_2/presentation/providers/anime_provider.dart';
 import 'anime_details_screen.dart';
 
+// Screen to display anime airing this season
 class SeasonAnimeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.white,  // Set the background color to white
       appBar: AppBar(
         title: Text(
           'Anime Airing This Season',
@@ -19,12 +20,13 @@ class SeasonAnimeScreen extends StatelessWidget {
       body: Consumer<AnimeProvider>(
         builder: (context, provider, child) {
           if (provider.errorMessage.isNotEmpty) {
-            return Center(child: Text(provider.errorMessage));
+            return Center(child: Text(provider.errorMessage));  // Display error message if any
           }
           if (provider.seasonAnime.isEmpty) {
-            provider.fetchCurrentSeasonAnime();
-            return Center(child: CircularProgressIndicator());
+            provider.fetchCurrentSeasonAnime();  // Fetch anime if the list is empty
+            return Center(child: CircularProgressIndicator());  // Show loading indicator
           }
+          // GridView to display the list of anime airing this season
           return GridView.builder(
             padding: const EdgeInsets.all(8.0),
             itemCount: provider.seasonAnime.length,
@@ -48,6 +50,7 @@ class SeasonAnimeScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    // Display anime image
                     Expanded(
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(10),
@@ -60,6 +63,7 @@ class SeasonAnimeScreen extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 8),
+                    // Display anime title
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 4.0),
                       child: Text(

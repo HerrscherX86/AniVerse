@@ -7,9 +7,11 @@ import '../widgets/details_section.dart';
 import '../widgets/streaming_service_card.dart';
 import 'webview_screen.dart';
 
+// Screen to display detailed information about an anime
 class AnimeDetailsScreen extends StatefulWidget {
   final Anime anime;
 
+  // Constructor to initialize with the selected anime
   AnimeDetailsScreen({required this.anime});
 
   @override
@@ -20,12 +22,14 @@ class _AnimeDetailsScreenState extends State<AnimeDetailsScreen> {
   @override
   void initState() {
     super.initState();
+    // Fetch streaming services and themes after the first frame
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Provider.of<AnimeProvider>(context, listen: false).fetchStreamingServices(widget.anime.malId);
       Provider.of<AnimeProvider>(context, listen: false).fetchThemes(widget.anime.malId);
     });
   }
 
+  // Helper method to get embedded video URL for YouTube
   String getEmbeddedVideoUrl(String url) {
     final Uri uri = Uri.parse(url);
     if (uri.host.contains('youtube.com')) {
@@ -64,6 +68,7 @@ class _AnimeDetailsScreenState extends State<AnimeDetailsScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      // Anime title, image, and rating
                       Row(
                         children: [
                           ClipRRect(
@@ -101,6 +106,7 @@ class _AnimeDetailsScreenState extends State<AnimeDetailsScreen> {
                         ],
                       ),
                       SizedBox(height: 20),
+                      // Anime details: length, type, episodes
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
@@ -110,6 +116,7 @@ class _AnimeDetailsScreenState extends State<AnimeDetailsScreen> {
                         ],
                       ),
                       SizedBox(height: 20),
+                      // Detailed sections: storyline, genres, studios, producers
                       DetailsSection(title: 'Storyline', content: widget.anime.synopsis),
                       DetailsSection(title: 'Genres', content: widget.anime.genres.join(', ')),
                       DetailsSection(title: 'Studios', content: widget.anime.studios.join(', ')),
@@ -123,15 +130,19 @@ class _AnimeDetailsScreenState extends State<AnimeDetailsScreen> {
                           return Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+                              // Display opening themes if available
                               if (openingThemes.isNotEmpty)
                                 DetailsSection(title: 'Opening Themes', content: openingThemes.join('\n')),
+                              // Display ending themes if available
                               if (endingThemes.isNotEmpty)
                                 DetailsSection(title: 'Ending Themes', content: endingThemes.join('\n')),
                               SizedBox(height: 20),
+                              // Streaming services section
                               Text(
                                 'Available on:',
                                 style: TextStyle(fontSize: 22.0, fontWeight: FontWeight.bold, color: Colors.black),
                               ),
+                              // List of streaming service cards
                               ...streamingServices.map((service) => StreamingServiceCard(
                                 name: service.name,
                                 url: service.url,
@@ -145,6 +156,7 @@ class _AnimeDetailsScreenState extends State<AnimeDetailsScreen> {
                                 },
                               )),
                               SizedBox(height: 20),
+                              // Trailer section
                               if (widget.anime.trailerUrl.isNotEmpty)
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -154,6 +166,7 @@ class _AnimeDetailsScreenState extends State<AnimeDetailsScreen> {
                                       style: TextStyle(fontSize: 22.0, fontWeight: FontWeight.bold, color: Colors.black),
                                     ),
                                     SizedBox(height: 10),
+                                    // Display trailer in a WebView
                                     LayoutBuilder(
                                       builder: (BuildContext context, BoxConstraints constraints) {
                                         final width = constraints.maxWidth;
@@ -191,7 +204,7 @@ class _AnimeDetailsScreenState extends State<AnimeDetailsScreen> {
               );
             },
           ),
-          // AppBar
+          // Transparent AppBar
           Positioned(
             top: 0,
             left: 0,
@@ -207,6 +220,7 @@ class _AnimeDetailsScreenState extends State<AnimeDetailsScreen> {
     );
   }
 
+  // Helper method to build information columns
   Widget _buildInfoColumn(String label, String value) {
     return Column(
       children: [

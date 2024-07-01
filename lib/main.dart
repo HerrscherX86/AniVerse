@@ -13,15 +13,24 @@ import 'package:aniverse_2/presentation/screens/auth_screen.dart';  // Use the c
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
 void main() {
+  // Initialize the Jikan API instance
   final JikanApi api = JikanApi();
+
+  // Create the AnimeRepository implementation with the API
   final AnimeRepositoryImpl repository = AnimeRepositoryImpl(api: api);
+
+  // Create the use case for getting top anime
   final GetTopAnime getTopAnime = GetTopAnime(repository: repository);
 
+  // Run the app with providers for state management
   runApp(
     MultiProvider(
       providers: [
+        // Provide AnimeProvider with the getTopAnime use case
         ChangeNotifierProvider(create: (_) => AnimeProvider(getTopAnime: getTopAnime)),
-        ChangeNotifierProvider(create: (_) => AuthProvider()),  // Add AuthProvider
+
+        // Provide AuthProvider for authentication
+        ChangeNotifierProvider(create: (_) => AuthProvider()),
       ],
       child: MyApp(),
     ),
@@ -70,8 +79,9 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  int _currentIndex = 0;
+  int _currentIndex = 0;  // Initial index of the selected tab
 
+  // List of screens for the bottom navigation bar
   final List<Widget> _screens = [
     SeasonAnimeScreen(), // Set Season Anime Screen as the home screen
     SearchScreen(), // Add SearchScreen
@@ -82,11 +92,11 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _screens[_currentIndex],
+      body: _screens[_currentIndex],  // Display the selected screen
       bottomNavigationBar: SalomonBottomBar(
-        currentIndex: _currentIndex,
-        onTap: (index) => setState(() => _currentIndex = index),
-        backgroundColor: Colors.white,
+        currentIndex: _currentIndex,  // Current selected index
+        onTap: (index) => setState(() => _currentIndex = index),  // Update the selected index
+        backgroundColor: Colors.white,  // Set background color of the navbar
         items: [
           SalomonBottomBarItem(
             icon: Icon(Icons.calendar_today),
